@@ -17,7 +17,17 @@ class ConcentrationThemeChooserViewController: UIViewController {
     ]
     
     @IBAction func changeTheme(_ sender: Any) {
-        performSegue(withIdentifier: "CHOOSE_THEME", sender: sender)
+        if let cvc = splitViewDetailConcentrationViewController {
+            if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
+                cvc.theme = theme
+            }
+        } else {
+            performSegue(withIdentifier: "CHOOSE_THEME", sender: sender)
+        }
+    }
+    
+    private var splitViewDetailConcentrationViewController: ConcentrationViewController? {
+        return splitViewController?.viewControllers.last as? ConcentrationViewController
     }
     
     // MARK: - Navigation
