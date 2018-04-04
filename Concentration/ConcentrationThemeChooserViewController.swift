@@ -42,7 +42,6 @@ class ConcentrationThemeChooserViewController: UIViewController {
     }
     
     // MARK: - Navigation
-    
     private var lastSeguedToConcentrationViewController: ConcentrationViewController?
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
