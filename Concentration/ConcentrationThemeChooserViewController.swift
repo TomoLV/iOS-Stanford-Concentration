@@ -21,6 +21,11 @@ class ConcentrationThemeChooserViewController: UIViewController {
             if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
                 cvc.theme = theme
             }
+        } else if let cvc = lastSeguedToConcentrationViewController {
+            navigationController?.pushViewController(cvc, animated: true)
+            if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
+                cvc.theme = theme
+            }
         } else {
             performSegue(withIdentifier: "CHOOSE_THEME", sender: sender)
         }
@@ -31,19 +36,17 @@ class ConcentrationThemeChooserViewController: UIViewController {
     }
     
     // MARK: - Navigation
+    
+    private var lastSeguedToConcentrationViewController: ConcentrationViewController?
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "CHOOSE_THEME":
-                if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
-                    if let destination = segue.destination as? ConcentrationViewController {
-                        destination.theme = theme
-                    }
+        if segue.identifier == "CHOOSE_THEME" {
+            if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
+                if let cvc = segue.destination as? ConcentrationViewController {
+                    cvc.theme = theme
+                    lastSeguedToConcentrationViewController = cvc
                 }
-            default:
-                break
             }
         }
     }
