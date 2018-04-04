@@ -35,11 +35,16 @@ class ConcentrationThemeChooserViewController: UIViewController {
         return splitViewController?.viewControllers.last as? ConcentrationViewController
     }
     
+    // MARK: - View Controller's Lifecycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        splitViewController?.delegate = self
+    }
+    
     // MARK: - Navigation
     
     private var lastSeguedToConcentrationViewController: ConcentrationViewController?
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CHOOSE_THEME" {
             if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
@@ -50,5 +55,17 @@ class ConcentrationThemeChooserViewController: UIViewController {
             }
         }
     }
+}
 
+// MARK: - UISplitViewControllerDelegate implementation
+extension ConcentrationThemeChooserViewController: UISplitViewControllerDelegate {
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        if let cvc = secondaryViewController as? ConcentrationViewController {
+            if cvc.theme == nil {
+                return true
+            }
+        }
+        return false
+    }
 }
