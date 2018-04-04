@@ -3,7 +3,7 @@
 //  Concentration
 //
 //  Created by Tomasz Bogusz on 05.03.2018.
-//  Copyright © 2018 Michel Deiman. All rights reserved.
+//  Copyright © 2018 Tomasz Bogusz. All rights reserved.
 //
 
 import UIKit
@@ -15,7 +15,11 @@ class ConcentrationThemeChooserViewController: UIViewController {
         "Animals":"IJKLMNOP",
         "Faces":"QRSTUVWX"
     ]
-
+    
+    @IBAction func changeTheme(_ sender: Any) {
+        performSegue(withIdentifier: "CHOOSE_THEME", sender: sender)
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
