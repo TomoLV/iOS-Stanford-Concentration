@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B182324204DE32100DC2EA8 /* ConcentrationThemeChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B182323204DE32100DC2EA8 /* ConcentrationThemeChooserViewController.swift */; };
+		2B5AD04120763CC90085AF1E /* VCLLoggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AD04020763CC90085AF1E /* VCLLoggingViewController.swift */; };
 		EA5F13081FB861A0009590B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5F13071FB861A0009590B6 /* AppDelegate.swift */; };
 		EA5F130A1FB861A0009590B6 /* ConcentrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5F13091FB861A0009590B6 /* ConcentrationViewController.swift */; };
 		EA5F130D1FB861A0009590B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA5F130B1FB861A0009590B6 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		2B182323204DE32100DC2EA8 /* ConcentrationThemeChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrationThemeChooserViewController.swift; sourceTree = "<group>"; };
+		2B5AD04020763CC90085AF1E /* VCLLoggingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCLLoggingViewController.swift; sourceTree = "<group>"; };
 		EA5F13041FB861A0009590B6 /* Concentration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concentration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA5F13071FB861A0009590B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA5F13091FB861A0009590B6 /* ConcentrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrationViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				EA5F13091FB861A0009590B6 /* ConcentrationViewController.swift */,
 				EAFC4CE61FB9AB1000EF2C53 /* Card.swift */,
 				EAFC4CE81FB9AC8600EF2C53 /* Concentration.swift */,
+				2B5AD04020763CC90085AF1E /* VCLLoggingViewController.swift */,
 				EAB24F441FB8622400FD5E4D /* Supporting Files */,
 				EA5F13131FB861A0009590B6 /* Info.plist */,
 			);
@@ -153,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B5AD04120763CC90085AF1E /* VCLLoggingViewController.swift in Sources */,
 				2B182324204DE32100DC2EA8 /* ConcentrationThemeChooserViewController.swift in Sources */,
 				EA5F130A1FB861A0009590B6 /* ConcentrationViewController.swift in Sources */,
 				EAFC4CE91FB9AC8600EF2C53 /* Concentration.swift in Sources */,
