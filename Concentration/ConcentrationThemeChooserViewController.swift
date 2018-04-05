@@ -8,11 +8,7 @@
 
 import UIKit
 
-class ConcentrationThemeChooserViewController: VCLLoggingViewController {
-    
-    override var vclLoggingName: String {
-        return "ThemeChooser"
-    }
+class ConcentrationThemeChooserViewController: UIViewController {
     
     let themes = [
         "Sports":"ABCDEFGH",
