@@ -12,7 +12,7 @@ class ConcentrationViewController: UIViewController {
     private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
     var numberOfPairsOfCards: Int {
-        return (cardButtons.count + 1) / 2
+        return (visibleCardButtons.count + 1) / 2
     }
     
     private(set) var flipCount = 0 {
@@ -25,10 +25,17 @@ class ConcentrationViewController: UIViewController {
             .strokeWidth: 5.0,
             .strokeColor: #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
         ]
-        let attributedString = NSAttributedString(string: "Flips: \(flipCount)",
-            attributes: attributes)
+        let attributedString = NSAttributedString(
+            string: traitCollection.verticalSizeClass == .compact ? "Flips\n\(flipCount)" : "Flips: \(flipCount)",
+            attributes: attributes
+        )
         
         flipCountLabel.attributedText = attributedString
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFlipCountLabel()
     }
     
     @IBOutlet private weak var flipCountLabel: UILabel! {
@@ -39,10 +46,19 @@ class ConcentrationViewController: UIViewController {
     
     @IBOutlet private var cardButtons: [UIButton]!
     
+    private var visibleCardButtons: [UIButton]! {
+        return cardButtons?.filter { !$0.superview!.isHidden }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateViewFromModel()
+    }
+    
     
     @IBAction private func touchCard(_ sender: UIButton) {
         flipCount += 1
-        if let cardNumber = cardButtons.index(of: sender) {
+        if let cardNumber = visibleCardButtons.index(of: sender) {
             game.chooseCard(at: cardNumber)
             updateViewFromModel()
         } else {
@@ -51,41 +67,41 @@ class ConcentrationViewController: UIViewController {
     }
     
     private func updateViewFromModel() {
-        if cardButtons != nil {
-        for index in cardButtons.indices {
-            let button = cardButtons[index]
-            let card = game.cards[index]
-            if card.isFaceUp {
-                button.setTitle(emoji(for: card), for: UIControlState.normal)
-                button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-            } else {
-                button.setTitle("", for: UIControlState.normal)
-                button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0) : #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        if visibleCardButtons != nil {
+            for index in visibleCardButtons.indices {
+                let button = visibleCardButtons[index]
+                let card = game.cards[index]
+                if card.isFaceUp {
+                    button.setTitle(emoji(for: card), for: UIControlState.normal)
+                    button.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                } else {
+                    button.setTitle("", for: UIControlState.normal)
+                    button.backgroundColor = card.isMatched ? #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 0) : #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+                }
             }
+        }
+        
+    }
+    
+    var theme: String? {
+        didSet {
+            emojiChoices = theme ?? ""
+            emoji = [:]
+            updateViewFromModel()
         }
     }
     
-}
-
-var theme: String? {
-    didSet {
-        emojiChoices = theme ?? ""
-        emoji = [:]
-        updateViewFromModel()
+    private var emojiChoices = "🦇😱🙀😈🎃👻🍭🍬🍎"
+    
+    private var emoji = [Card: String]()
+    
+    private func emoji(for card: Card) -> String {
+        if emoji[card] == nil, emojiChoices.count > 0 {
+            let stringIndex = emojiChoices.index(emojiChoices.startIndex, offsetBy: emojiChoices.count.arc4Random)
+            emoji[card] = String(emojiChoices.remove(at: stringIndex))
+        }
+        return emoji[card] ?? "?"
     }
-}
-
-private var emojiChoices = "🦇😱🙀😈🎃👻🍭🍬🍎"
-
-private var emoji = [Card: String]()
-
-private func emoji(for card: Card) -> String {
-    if emoji[card] == nil, emojiChoices.count > 0 {
-        let stringIndex = emojiChoices.index(emojiChoices.startIndex, offsetBy: emojiChoices.count.arc4Random)
-        emoji[card] = String(emojiChoices.remove(at: stringIndex))
-    }
-    return emoji[card] ?? "?"
-}
 }
 
 extension Int {
